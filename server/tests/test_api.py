@@ -142,6 +142,26 @@ def test_rate_limit(client):
     assert codes[30] == 429
 
 
+def scan_from(client, forwarded_for):
+    return client.get("/api/scan", params={"host": "cloudflare.com"},
+                      headers={"X-Forwarded-For": forwarded_for}).status_code
+
+
+def test_rate_limit_is_per_visitor_behind_proxies(client, monkeypatch):
+    monkeypatch.setattr(app_module, "TRUSTED_PROXY_HOPS", 2)
+    # The visitor makes up a new first entry every time, but the entry our
+    # first proxy added (1.1.1.1) stays the same, so it is still one visitor.
+    codes = [scan_from(client, f"9.9.9.{i}, 1.1.1.1, 10.0.0.1") for i in range(31)]
+    assert codes[:30] == [200] * 30
+    assert codes[30] == 429
+    assert scan_from(client, "2.2.2.2, 10.0.0.1") == 200   # someone else is not blocked
+
+
+def test_forwarded_for_is_ignored_without_proxies(client):
+    codes = [scan_from(client, f"9.9.9.{i}") for i in range(31)]
+    assert codes[30] == 429
+
+
 def test_demo_sites(client):
     sites = client.get("/api/demo-sites").json()["sites"]
     assert "cloudflare.com" in sites and len(sites) >= 5

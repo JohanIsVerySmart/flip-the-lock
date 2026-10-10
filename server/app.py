@@ -7,6 +7,7 @@ start the openssl subprocesses):
 
 import asyncio
 import logging
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -31,8 +32,23 @@ TOTAL_SCAN_TIMEOUT = 20   # seconds for the whole scan, both probes included
 # Network failures where a saved result is better than an error.
 FALL_BACK_ON = {"timeout", "no_tls", "dns_failed"}
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
+# Behind proxies we run (for example Firebase Hosting, then Cloud Run), every
+# request arrives from a proxy, so all visitors would share one rate limit.
+# Each proxy adds the address it saw to the end of X-Forwarded-For, so the
+# entry this many places from the end is the visitor. Entries further left
+# were written by the visitor and are ignored. 0 means no proxy: use the socket.
+TRUSTED_PROXY_HOPS = int(os.environ.get("TRUSTED_PROXY_HOPS", "0"))
 
 log = logging.getLogger("flip")
+
+
+def client_ip_of(request):
+    if TRUSTED_PROXY_HOPS:
+        forwarded = ",".join(request.headers.getlist("x-forwarded-for"))
+        hops = [h.strip() for h in forwarded.split(",") if h.strip()]
+        if len(hops) >= TRUSTED_PROXY_HOPS:
+            return hops[-TRUSTED_PROXY_HOPS]
+    return request.client.host if request.client else "unknown"
 
 
 @asynccontextmanager
@@ -140,7 +156,7 @@ async def scan(request: Request, host: str = "", data: str = "health_records",
     except ValueError:
         return scan_error_response(shown_host, "invalid_input")
 
-    client_ip = request.client.host if request.client else "unknown"
+    client_ip = client_ip_of(request)
     try:
         is_practice = normalize_host(shown_host) == "practice"   # also "Practice." etc.
     except ScanError:
@@ -253,7 +269,7 @@ class ModeRequest(BaseModel):
 @app.post("/api/practice/mode")
 async def practice_mode(body: ModeRequest, request: Request):
     """Really stop and restart the practice server with the other group list."""
-    client_ip = request.client.host if request.client else "unknown"
+    client_ip = client_ip_of(request)
     if not practice_limiter.allow(client_ip):
         return JSONResponse({"error": {"code": "rate_limited",
                                        "message": MESSAGES["rate_limited"]}}, status_code=429)

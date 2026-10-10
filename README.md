@@ -194,6 +194,10 @@ security-sensitive surface:
 - At most 6 scans at once (3 per client), and about 30 scans per minute per
   client IP (HTTP 429 after that). The practice server has its own, larger
   limit so flipping it cannot be locked out by outside scans.
+- Behind proxies we run, set `TRUSTED_PROXY_HOPS` to the number of proxies so
+  each visitor gets their own limit. The visitor's address is read that many
+  entries from the end of `X-Forwarded-For`, so a made-up header cannot dodge
+  the limit. With the default of 0 the header is ignored.
 - At most 8 DNS lookups at once.
 - OpenSSL runs with an argument list, never through a shell. Responses never
   include raw OpenSSL output or stack traces.
