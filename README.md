@@ -212,11 +212,3 @@ Otherwise the key exchange would be the platform's, not ours.
 | `practice/` | Practice TLS server and mode switch |
 | `scripts/` | Start script, pre-demo check, seeding, sample capture, flip proof |
 | `web/` | Frontend (plain HTML, CSS, JavaScript) |
-
-
-## History
-
-This code was first written in an earlier repository,
-[Pradyumna-Y/Ensign_Hackathon](https://github.com/Pradyumna-Y/Ensign_Hackathon),
-during the event (Oct 9 to 10, 2026), and moved here. The commits here are
-smaller steps made after the move, with their real times.
