@@ -1,0 +1,19 @@
+{
+  "sites": [
+    "cloudflare.com",
+    "google.com",
+    "wikipedia.org",
+    "bankofamerica.com",
+    "zionsbank.com",
+    "intermountainhealthcare.org",
+    "healthcare.gov",
+    "login.gov",
+    "github.com",
+    "www.chase.com",
+    "www.amazon.com",
+    "utah.gov",
+    "www.irs.gov",
+    "www.mayoclinic.org",
+    "static-rsa.badssl.com"
+  ]
+}
