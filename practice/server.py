@@ -1,4 +1,4 @@
-"""The practice server: a real TLS server we control, for the "Flip the lock" demo.
+"""The practice server: a real TLS server we control, for the "Post Lock" demo.
 
 It is `openssl s_server` listening on 127.0.0.1:8443 with TLS 1.3 only.
 Switching modes really stops the process and starts it again with a
@@ -85,7 +85,7 @@ class PracticeServer:
         self.mode = None
         self.proc = None
         self.lock = asyncio.Lock()   # one restart at a time
-        self.tmpdir = tempfile.TemporaryDirectory(prefix="flip-practice-")
+        self.tmpdir = tempfile.TemporaryDirectory(prefix="post-lock-practice-")
         self.cert, self.key = make_self_signed_cert(self.tmpdir.name)
 
     async def _start(self, mode):

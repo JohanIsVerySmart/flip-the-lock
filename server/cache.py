@@ -13,7 +13,8 @@ from pathlib import Path
 from server import scoring
 
 ROOT = Path(__file__).resolve().parent.parent
-CACHE_DIR = Path(os.environ.get("FLIP_CACHE_DIR", ROOT / "cache"))
+CACHE_DIR = Path(os.environ.get("POST_LOCK_CACHE_DIR",
+                                os.environ.get("FLIP_CACHE_DIR", ROOT / "cache")))
 DEMO_SITES_FILE = Path(__file__).resolve().parent / "demo_sites.json"
 
 

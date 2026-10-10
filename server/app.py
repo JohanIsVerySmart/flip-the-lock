@@ -32,7 +32,7 @@ TOTAL_SCAN_TIMEOUT = 20   # seconds for the whole scan, both probes included
 FALL_BACK_ON = {"timeout", "no_tls", "dns_failed"}
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
 
-log = logging.getLogger("flip")
+log = logging.getLogger("post_lock")
 
 
 @asynccontextmanager
@@ -56,7 +56,7 @@ async def lifespan(app):
         await app.state.practice.close()
 
 
-app = FastAPI(title="Flip the Lock", lifespan=lifespan, docs_url=None, redoc_url=None)
+app = FastAPI(title="Post Lock", lifespan=lifespan, docs_url=None, redoc_url=None)
 
 # The page loads only its own scripts, its own API, and Google Fonts. Inline
 # styles are allowed because the page sets a few style attributes itself.

@@ -1,4 +1,4 @@
-# Flip the Lock: API + frontend + practice server in one container.
+# Post Lock: API + frontend + practice server in one container.
 #
 # Debian 13 (trixie) ships OpenSSL 3.5, the first version that can offer the
 # hybrid post-quantum group X25519MLKEM768.
