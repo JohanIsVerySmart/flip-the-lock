@@ -1,4 +1,4 @@
-# Flip the Lock
+# Post Lock
 
 Type a website address and see whether its HTTPS connection is ready for the
 quantum era.
@@ -9,9 +9,9 @@ record the scrambled traffic today and read it later ("harvest now, decrypt
 later"). A newer hybrid key exchange, X25519MLKEM768 (built on the NIST
 ML-KEM standard), stops that, and large sites are switching it on now.
 
-Flip the Lock connects to a site, sees which key exchange the site picks, and
+Post Lock connects to a site, sees which key exchange the site picks, and
 says "Ready" or "Not ready yet" in plain English, with a timeline of how long
-your kind of data needs to stay secret. The "Flip the lock" demo switches a
+your kind of data needs to stay secret. The practice demo switches a
 practice server we control from the old method to the new one, rescans, and
 shows the verdict change.
 
@@ -29,7 +29,7 @@ It finds an OpenSSL 3.5 or later, sets itself up the first time, and opens
 the page. Then:
 
 1. Type any site (or click an example) and press Scan.
-2. Open "Flip the lock" and press the switch. A real server restarts with the
+2. Open "Practice server" and press the switch. A real server restarts with the
    new key exchange and the page rescans.
 3. Press "Reset to the old lock" to start the demo again.
 
@@ -109,8 +109,8 @@ assumed 2040 quantum arrival. Urgency is shown but never changes the score.
 ### Docker (recommended)
 
 ```
-docker build -t flip-the-lock .
-docker run --rm -p 8000:8000 -v "$PWD/cache:/app/cache" flip-the-lock
+docker build -t post-lock .
+docker run --rm -p 8000:8000 -v "$PWD/cache:/app/cache" post-lock
 ```
 
 The `-v` option shares the `cache/` folder (see "Saved results" below) so
@@ -126,6 +126,9 @@ limit.
 Run `python scripts/seed_cache.py` on the demo machine, on the demo network,
 before the demo. Saved results are used only when a live scan of a demo site
 times out, finds no TLS, or cannot resolve the name.
+
+Set `POST_LOCK_CACHE_DIR` to store saved results in a different folder.
+The earlier `FLIP_CACHE_DIR` setting is still supported for existing setups.
 
 ### Without Docker
 

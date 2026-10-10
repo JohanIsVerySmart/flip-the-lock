@@ -1,4 +1,4 @@
-"""Run the Flip the lock demo against a running API and print each step.
+"""Run the Post Lock demo against a running API and print each step.
 
     python scripts/prove_flip.py [http://127.0.0.1:8000]
 

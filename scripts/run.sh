@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One command to start Flip the Lock on macOS or Linux.
+# One command to start Post Lock on macOS or Linux.
 #
 #     ./scripts/run.sh
 #
