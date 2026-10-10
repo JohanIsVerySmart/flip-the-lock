@@ -38,16 +38,3 @@ cached results. The practice switch alternates the two practice fixtures.
 Keyboard focus moves to a completed scan. Result status is announced politely.
 Touch controls are at least 44 pixels tall. Reduced-motion preferences remove
 loading rotation and the practice verdict animation.
-
-## Suggested LEARNED.md entries
-
-Add these to the shared learning log with your own event timestamps:
-
-1. I learned to keep mock data separate from live results and parse error JSON
-   regardless of HTTP status.
-2. I learned to reload the server's actual mode after a failed toggle because
-   the restart may already have succeeded.
-3. I learned that data retention and connection readiness answer different
-   questions, so the timeline explains risk without changing the score.
-4. I learned to test errors, keyboard focus, reduced motion, and phone layouts
-   alongside the successful demo path.
