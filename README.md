@@ -206,13 +206,12 @@ Otherwise the key exchange would be the platform's, not ours.
 
 ## Project layout
 
-| Path | Owner | Contents |
-|---|---|---|
-| `server/` | Person A | Scanner, scoring, API, saved results |
-| `practice/` | Person A | Practice TLS server and mode switch |
-| `scripts/` | Person A | Start script, pre-demo check, seeding, sample capture, flip proof |
-| `web/` | Person B | Frontend (plain HTML, CSS, JavaScript) |
-| `LEARNED.md` | Shared | What each of us learned, with times |
+| Path | Contents |
+|---|---|
+| `server/` | Scanner, scoring, API, saved results |
+| `practice/` | Practice TLS server and mode switch |
+| `scripts/` | Start script, pre-demo check, seeding, sample capture, flip proof |
+| `web/` | Frontend (plain HTML, CSS, JavaScript) |
 
 
 ## History
